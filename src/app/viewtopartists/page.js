@@ -106,7 +106,7 @@ function ViewTopArtists() {
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">View Your Top Artists</h1>
             <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-            <button onClick={fetchTopArtists} className="btn btn-info bg-mytheme-secondary">Reveal Artists</button>
+            <button onClick={fetchTopArtists} className="btn btn-info bg-green-600">Reveal Artists</button>
             {renderArtists()}
           </div>
         </div>

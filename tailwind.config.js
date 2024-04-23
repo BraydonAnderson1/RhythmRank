@@ -8,23 +8,23 @@ module.exports = {
     extend: {
       colors: {
         mytheme: {
-          "primary": "#0075ff",
+          "primary": "#65a30d",
           
- "secondary": "#00c2ff",
-          
- "accent": "#003eff",
-          
- "neutral": "#060b04",
-          
- "base-100": "#292929",
-          
- "info": "#00feff",
-          
- "success": "#88bc00",
-          
- "warning": "#ed8800",
-          
- "error": "#ff4658",
+          "secondary": "#111827",
+                   
+          "accent": "#00a524",
+                   
+          "neutral": "#a8a29e",
+                   
+          "base-100": "#74151",
+                   
+          "info": "#fef08a",
+                   
+          "success": "#00af56",
+                   
+          "warning": "#ff9600",
+                   
+          "error": "#ff0040",
         },
       },
       backgroundImage: {

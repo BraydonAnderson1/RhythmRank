@@ -107,9 +107,9 @@ function Discover() {
             <h1 className="text-5xl font-bold">Discover Music</h1>
             <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
             <div className='space-x-0.5'>
-            <Link href='/viewtopartists'className="btn btn-info bg-mytheme-secondary">View Top Artists</Link>
-            <Link href='/viewtopsongs'className="btn btn-info bg-mytheme-accent">View Top Songs</Link>
-            <Link href='/discover'className="btn btn-info bg-mytheme-info">Discover Music</Link>
+            <Link href='/viewtopartists'className="btn btn-info bg-green-600">View Top Artists</Link>
+            <Link href='/viewtopsongs'className="btn btn-info bg-green-600">View Top Songs</Link>
+            <Link href='/discover'className="btn btn-info bg-green-600">Discover Music</Link>
             </div>
           </div>
         </div>
