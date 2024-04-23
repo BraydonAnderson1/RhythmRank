@@ -55,7 +55,7 @@ function ViewTopArtists() {
         <div className="card-body">
           <h2 className="card-title">{artist.name}</h2>
           <div className="card-actions justify-end">
-            <Link href={`/artist/${artist.id}`} className="btn btn-primary">View Artist</Link>
+            <a href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="btn btn-info">View Artist</a>
           </div>
         </div>
       </div>

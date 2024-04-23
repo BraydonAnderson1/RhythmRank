@@ -47,20 +47,24 @@ function ViewTopSongs() {
   };
 
   const renderTracks = () => {
-    return topTracks.map(track => (
-      <div key={track.id} className="card card-compact w-96 bg-base-100 shadow-xl">
-        <figure>
-          <img src={track.album.images.length ? track.album.images[0].url : "https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"} alt={track.name} />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">{track.name}</h2>
-          <p>{track.artists.map(artist => artist.name).join(", ")}</p>
-          <div className="card-actions justify-end">
-            <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Listen on Spotify</a>
+    return (
+      <div className="flex flex-wrap justify-center">
+        {topTracks.map(track => (
+          <div key={track.id} className="card card-compact w-96 bg-base-100 shadow-xl mx-4 my-4">
+            <figure>
+              <img src={track.album.images.length ? track.album.images[0].url : "https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"} alt={track.name} />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{track.name}</h2>
+              <p>{track.artists.map(artist => artist.name).join(", ")}</p>
+              <div className="card-actions justify-end">
+                <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Listen on Spotify</a>
+              </div>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
-    ));
+    );
   };
 
   return (

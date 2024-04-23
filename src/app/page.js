@@ -51,12 +51,18 @@ function Home() {
 
   const renderArtists = () => {
     return artists.map(artist => (
-      <div key={artist.id}>
-        {artist.images.length ? <img width={"10%"} src={artist.images[0].url} alt="" /> : <div>No Image</div>}
-        {artist.name}
+      <div key={artist.id} className="card card-compact w-96 bg-base-100 shadow-xl">
+        <figure><img src={artist.images.length ? artist.images[0].url : "https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"} alt={artist.name} /></figure>
+        <div className="card-body">
+          <h2 className="card-title">{artist.name}</h2>
+          <div className="card-actions justify-end">
+            <Link href={`/artist/${artist.id}`} className="btn btn-primary">View Artist</Link>
+          </div>
+        </div>
       </div>
     ))
   }
+
   const fetchTopArtists = async () => {
     const { data } = await axios.get("https://api.spotify.com/v1/me/top/artists", {
       headers: {
@@ -115,13 +121,13 @@ function Home() {
             <Link href='/viewtopartists'className="btn btn-info bg-mytheme-secondary">View Top Artists</Link>
             <Link href='/viewtopsongs'className="btn btn-info bg-mytheme-accent">View Top Songs</Link>
             <Link href='/discover'className="btn btn-info bg-mytheme-info">Discover Music</Link>
+            {renderArtists()}
             </div>
           </div>
         </div>
       </div>
       <div>
-        {renderArtists()}
-      </div>
+    </div>
     </div>
   );
 }
