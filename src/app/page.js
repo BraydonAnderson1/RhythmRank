@@ -116,7 +116,7 @@ function Home() {
             <Link href='/viewtopartists'className="btn btn-primary">View Top Artists</Link>
             <Link href='/viewtopsongs'className="btn btn-primary">View Top Songs</Link>
             <Link href='/viewtopartists'className="btn btn-primary">View Top Genres</Link>
-            <Link href='/discover'className="btn btn-primary">Discover Music</Link>
+            <Link href='/viewtopgenres'className="btn btn-primary">Discover Music</Link>
             {renderArtists()}
             </div>
           </div>
