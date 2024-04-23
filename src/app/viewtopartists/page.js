@@ -1,5 +1,4 @@
-'use client';
-
+"use client"
 import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -51,29 +50,20 @@ function ViewTopArtists() {
 
   const renderArtists = () => {
     return artists.map(artist => (
-      <div key={artist.id}>
-        {artist.images.length ? <img width={"10%"} src={artist.images[0].url} alt="" /> : <div>No Image</div>}
-        {artist.name}
+      <div key={artist.id} className="card card-compact w-96 bg-base-100 shadow-xl">
+        <figure><img src={artist.images.length ? artist.images[0].url : "https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"} alt={artist.name} /></figure>
+        <div className="card-body">
+          <h2 className="card-title">{artist.name}</h2>
+          <div className="card-actions justify-end">
+            <Link href={`/artist/${artist.id}`} className="btn btn-primary">View Artist</Link>
+          </div>
+        </div>
       </div>
     ))
   }
+
   const fetchTopArtists = async () => {
     const { data } = await axios.get("https://api.spotify.com/v1/me/top/artists", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      params: {
-        time_range: "short_term",
-        limit: 5,
-        offset: 5
-      }
-    })
-
-    setArtists(data.items)
-  }
-
-  const fetchTopSongs = async () => {
-    const { data } = await axios.get("https://api.spotify.com/v1/me/top/tracks", {
       headers: {
         Authorization: `Bearer ${token}`
       },
@@ -90,52 +80,35 @@ function ViewTopArtists() {
   return (
     <div className="App">
       <header className="App-header">
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-mytheme-neutral outline outline-offset-2 outline-1">
           <div className="flex-1">
-            <a className="btn btn-ghost text-xl">RhythmRank</a>
+            <Link href="/" className="btn btn-ghost text-xl">RhythmRank</Link>
+            <Link href='/viewtopsongs' className="btn btn-ghost text-xl">View Top Songs</Link>
+            <Link href='/discover' className="btn btn-ghost text-xl">Discover Music</Link>
           </div>
           <div className="flex-none gap-2">
             <div className="form-control">
               <form onSubmit={searchArtists}>
-                <input type="text" onChange={e => setSearchKey(e.target.value)} className="input input-bordered w-24 md:w-auto" />
+                <input placeholder="Search Artist" type="text" onChange={e => setSearchKey(e.target.value)} className="input input-bordered w-24 md:w-auto" />
               </form>
             </div>
-            <div className="dropdown dropdown-end">
-              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
-                  <span className="text-3xl">B</span>
-                </div>
-              </div>
-              <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-                <li>
-                  <a className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
-                  </a>
-                </li>
-                <li>{!token ?
+            <p>{!token ?
                   <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=user-top-read`}>Login to Spotify</a>
-                  : <button onClick={logout}>Logout</button>}</li>
-              </ul>
-            </div>
+                  : <button onClick={logout}>Logout</button>}</p>
           </div>
         </div>
       </header>
-      <div className="hero min-h-screen bg-base-200">
+      <div className="hero min-h-screen bg-mytheme-neutral">
         <div className="hero-content text-center">
           <div className="max-w-md">
-            <h1 className="text-5xl font-bold">view top artists</h1>
+            <h1 className="text-5xl font-bold">View Your Top Artists</h1>
             <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-            <div className='space-x-0.5'>
-            <Link href='src/pages/viewtopartists'className="btn btn-info">View Top Artists</Link>
-            <Link href='/pages/viewtopsongs'className="btn btn-info">View Top Songs</Link>
-            <Link href='/pages/discover'className="btn btn-info">Discover Music</Link>
-            </div>
+            <button onClick={fetchTopArtists} className="btn btn-info bg-mytheme-secondary">Reveal Artists</button>
+            {renderArtists()}
           </div>
         </div>
       </div>
       <div>
-        {renderArtists()}
       </div>
     </div>
   );

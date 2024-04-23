@@ -90,46 +90,31 @@ function Discover() {
   return (
     <div className="App">
       <header className="App-header">
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-mytheme-neutral outline outline-offset-2 outline-1">
           <div className="flex-1">
-            <a className="btn btn-ghost text-xl">RhythmRank</a>
+            <Link href="/" className="btn btn-ghost text-xl">RhythmRank</Link>
           </div>
           <div className="flex-none gap-2">
             <div className="form-control">
               <form onSubmit={searchArtists}>
-                <input type="text" onChange={e => setSearchKey(e.target.value)} className="input input-bordered w-24 md:w-auto" />
+                <input placeholder="Search Artist" type="text" onChange={e => setSearchKey(e.target.value)} className="input input-bordered w-24 md:w-auto" />
               </form>
             </div>
-            <div className="dropdown dropdown-end">
-              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                <div className="w-10 rounded-full">
-                  <span className="text-3xl">B</span>
-                </div>
-              </div>
-              <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-                <li>
-                  <a className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
-                  </a>
-                </li>
-                <li>{!token ?
+            <p>{!token ?
                   <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=user-top-read`}>Login to Spotify</a>
-                  : <button onClick={logout}>Logout</button>}</li>
-              </ul>
+                  : <button onClick={logout}>Logout</button>}</p>
             </div>
           </div>
-        </div>
       </header>
-      <div className="hero min-h-screen bg-base-200">
+      <div className="hero min-h-screen bg-mytheme-neutral">
         <div className="hero-content text-center">
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">Discover Music</h1>
             <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
             <div className='space-x-0.5'>
-            <Link href='/viewtopartists'className="btn btn-info">View Top Artists</Link>
-            <Link href='/viewtopsongs'className="btn btn-info">View Top Songs</Link>
-            <Link href='/discover'className="btn btn-info">Discover Music</Link>
+            <Link href='/viewtopartists'className="btn btn-info bg-mytheme-secondary">View Top Artists</Link>
+            <Link href='/viewtopsongs'className="btn btn-info bg-mytheme-accent">View Top Songs</Link>
+            <Link href='/discover'className="btn btn-info bg-mytheme-info">Discover Music</Link>
             </div>
           </div>
         </div>
@@ -142,4 +127,3 @@ function Discover() {
 }
 
 export default Discover;
-
