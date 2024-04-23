@@ -127,9 +127,9 @@ function Home() {
             <h1 className="text-5xl font-bold">Welcome to RhythmRank</h1>
             <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
             <div className='space-x-0.5'>
-            <Link href='/pages/viewtopartists'className="btn btn-info">View Top Artists</Link>
-            <Link href='/pages/viewtopsongs'className="btn btn-info">View Top Songs</Link>
-            <Link href='/pages/discover'className="btn btn-info">Discover Music</Link>
+            <Link href='pages/viewtopartists'className="btn btn-info">View Top Artists</Link>
+            <Link href='pages/viewtopsongs'className="btn btn-info">View Top Songs</Link>
+            <Link href='pages/discover'className="btn btn-info">Discover Music</Link>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import axios from 'axios';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 const CLIENT_ID = "a7d0f74df3774f789303f7fc77ce014b";
@@ -8,7 +9,7 @@ const REDIRECT_URI = "http://localhost:3000";
 const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
 const RESPONSE_TYPE = "token";
 
-function Home() {
+function Discover() {
   const [token, setToken] = useState("");
   const [searchKey, setSearchKey] = useState("")
   const [artists, setArtists] = useState([])
@@ -123,12 +124,12 @@ function Home() {
       <div className="hero min-h-screen bg-base-200">
         <div className="hero-content text-center">
           <div className="max-w-md">
-            <h1 className="text-5xl font-bold">Welcome to RhythmRank</h1>
+            <h1 className="text-5xl font-bold">Discover Music</h1>
             <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
             <div className='space-x-0.5'>
-            <button className="btn btn-info">View Top Artists</button>
-            <button className="btn btn-success">View Top Songs</button>
-            <button className="btn btn-error">Discover Music</button>
+            <Link href='/viewtopartists'className="btn btn-info">View Top Artists</Link>
+            <Link href='/viewtopsongs'className="btn btn-info">View Top Songs</Link>
+            <Link href='/discover'className="btn btn-info">Discover Music</Link>
             </div>
           </div>
         </div>
@@ -140,4 +141,5 @@ function Home() {
   );
 }
 
-export default Home;
+export default Discover;
+
