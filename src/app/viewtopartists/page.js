@@ -3,11 +3,6 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
-const CLIENT_ID = "a7d0f74df3774f789303f7fc77ce014b";
-const REDIRECT_URI = "http://localhost:3000";
-const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
-const RESPONSE_TYPE = "token";
-
 function ViewTopArtists() {
   const [token, setToken] = useState("");
   const [searchKey, setSearchKey] = useState("")
@@ -93,7 +88,7 @@ function ViewTopArtists() {
               </form>
             </div>
             <p>{!token ?
-                  <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=user-top-read`}>Login to Spotify</a>
+                  <a href={`${process.env.AUTH_ENDPOINT}?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}&response_type=${process.env.RESPONSE_TYPE}&scope=user-top-read`}>Login to Spotify</a>
                   : <button onClick={logout}>Logout</button>}</p>
           </div>
         </div>
