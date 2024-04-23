@@ -163,18 +163,18 @@ function Discover() {
       <div className="hero min-h-screen bg-mytheme-neutral">
         <div className="hero-content text-center">
           <div className="max-w-7x1">
-            <h1 className="text-5xl font-bold">Discover Music</h1>
+            <h1 className="text-5xl font-bold pb-10">Discover Music</h1>
             <div className="grid grid-cols-3 gap-8">
               <div className="col-span-1">
-                <button onClick={fetchTopTracks} className="btn btn-info bg-mytheme-secondary w-full">Reveal Top Tracks</button>
+                <button onClick={fetchTopTracks} className="btn btn-primary w-full">Reveal Top Tracks</button>
                 {renderTracks()}
               </div>
               <div className="col-span-1">
-                <button onClick={fetchTopArtists} className="btn btn-info bg-mytheme-secondary w-full">Reveal Top Artists</button>
+                <button onClick={fetchTopArtists} className="btn btn-primary w-full">Reveal Top Artists</button>
                 {renderArtists()}
               </div>
               <div className="col-span-1">
-                <button onClick={fetchTopGenres} className="btn btn-info bg-mytheme-secondary w-full">Reveal Top Genres</button>
+                <button onClick={fetchTopGenres} className="btn btn-primary w-full">Reveal Top Genres</button>
                 {renderGenres()}
               </div>
             </div>

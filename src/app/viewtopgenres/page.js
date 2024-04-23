@@ -81,7 +81,7 @@ function ViewTopGenres() {
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">View Top Genres</h1>
             <p className="py-6">Discover the top genres based on your listening preferences.</p>
-            <button onClick={fetchTopGenres} className="btn btn-info bg-green-600">Reveal Genres</button>
+            <button onClick={fetchTopGenres} className="btn btn-primary">Reveal Genres</button>
             {renderGenres()}
           </div>
         </div>
