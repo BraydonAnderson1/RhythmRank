@@ -34,7 +34,7 @@ function ViewTopSongs() {
       params: {
         time_range: "short_term",
         limit: 5,
-        offset: 0 // Assuming you want to start from the first track
+        offset: 0
       }
     });
 
@@ -68,8 +68,8 @@ function ViewTopSongs() {
         <div className="navbar bg-mytheme-neutral outline outline-offset-2 outline-1">
           <div className="flex-1">
             <Link href="/" className="btn btn-ghost text-xl">RhythmRank</Link>
-            <Link href='/viewtopsongs' className="btn btn-ghost text-xl">View Top Songs</Link>
             <Link href='/discover' className="btn btn-ghost text-xl">Discover Music</Link>
+            <Link href='/viewtopartists' className="btn btn-ghost text-xl">View Top Artists</Link>
           </div>
           <div className="flex-none gap-2">
             <p>{!token ?

@@ -45,32 +45,39 @@ function ViewTopArtists() {
 
   const renderArtists = () => {
     return artists.map(artist => (
-      <div key={artist.id} className="card card-compact w-96 bg-base-100 shadow-xl">
-        <figure><img src={artist.images.length ? artist.images[0].url : "https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"} alt={artist.name} /></figure>
+      <div key={artist.id} className="card card-compact w-96 bg-base-100 shadow-xl mx-4 my-4">
+        <figure>
+          <img src={artist.images.length ? artist.images[0].url : "https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"} alt={artist.name} />
+        </figure>
         <div className="card-body">
           <h2 className="card-title">{artist.name}</h2>
           <div className="card-actions justify-end">
-            <a href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="btn btn-info">View Artist</a>
+            <a href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="btn btn-primary">View Artist</a>
           </div>
         </div>
       </div>
-    ))
-  }
+    ));
+  };
 
   const fetchTopArtists = async () => {
-    const { data } = await axios.get("https://api.spotify.com/v1/me/top/artists", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      params: {
-        time_range: "short_term",
-        limit: 5,
-        offset: 5
-      }
-    })
-
-    setArtists(data.items)
-  }
+    try {
+      const { data } = await axios.get("https://api.spotify.com/v1/me/top/artists", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        params: {
+          time_range: "short_term",
+          limit: 5,
+          offset: 0
+        }
+      });
+      console.log("Top artists data:", data);
+      setArtists(data.items);
+    } catch (error) {
+      console.error("Error fetching top artists:", error);
+    }
+  };
+  
 
   return (
     <div className="App">
@@ -78,8 +85,8 @@ function ViewTopArtists() {
         <div className="navbar bg-mytheme-neutral outline outline-offset-2 outline-1">
           <div className="flex-1">
             <Link href="/" className="btn btn-ghost text-xl">RhythmRank</Link>
-            <Link href='/viewtopsongs' className="btn btn-ghost text-xl">View Top Songs</Link>
             <Link href='/discover' className="btn btn-ghost text-xl">Discover Music</Link>
+            <Link href='/viewtopsongs' className="btn btn-ghost text-xl">View Top Songs</Link>
           </div>
           <div className="flex-none gap-2">
             <div className="form-control">
