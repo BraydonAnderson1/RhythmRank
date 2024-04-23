@@ -87,6 +87,7 @@ function ViewTopArtists() {
             <Link href="/" className="btn btn-ghost text-xl">RhythmRank</Link>
             <Link href='/discover' className="btn btn-ghost text-xl">Discover Music</Link>
             <Link href='/viewtopsongs' className="btn btn-ghost text-xl">View Top Songs</Link>
+            <Link href='/viewtopgenres' className="btn btn-ghost text-xl">View Top Genres</Link>
           </div>
           <div className="flex-none gap-2">
             <div className="form-control">

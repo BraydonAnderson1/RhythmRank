@@ -112,9 +112,10 @@ function Home() {
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">Welcome to RhythmRank</h1>
             <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-            <div className='space-x-0.5'>
+            <div className='space-y-4 space-x-1'>
             <Link href='/viewtopartists'className="btn btn-info bg-mytheme-secondary">View Top Artists</Link>
             <Link href='/viewtopsongs'className="btn btn-info bg-mytheme-accent">View Top Songs</Link>
+            <Link href='/viewtopartists'className="btn btn-info bg-mytheme-secondary">View Top Genres</Link>
             <Link href='/discover'className="btn btn-info bg-mytheme-info">Discover Music</Link>
             {renderArtists()}
             </div>
