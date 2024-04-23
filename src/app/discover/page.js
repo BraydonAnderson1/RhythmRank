@@ -1,86 +1,149 @@
-'use client';
-
+"use client"
 import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 function Discover() {
   const [token, setToken] = useState("");
-  const [searchKey, setSearchKey] = useState("")
-  const [artists, setArtists] = useState([])
+  const [topTracks, setTopTracks] = useState([]);
+  const [topArtists, setTopArtists] = useState([]);
+  const [topGenres, setTopGenres] = useState([]);
 
   useEffect(() => {
-    const hash = window.location.hash
-    let token = window.localStorage.getItem("token")
+    const hash = window.location.hash;
+    let token = window.localStorage.getItem("token");
 
     if (!token && hash) {
-      token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+      token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1];
 
-      window.location.hash = ""
-      window.localStorage.setItem("token", token)
+      window.location.hash = "";
+      window.localStorage.setItem("token", token);
     }
 
-    setToken(token)
-
-  }, [])
+    setToken(token);
+  }, []);
 
   const logout = () => {
-    setToken("")
-    window.localStorage.removeItem("token")
-  }
+    setToken("");
+    window.localStorage.removeItem("token");
+  };
 
-  const searchArtists = async (e) => {
-    e.preventDefault()
-    const { data } = await axios.get("https://api.spotify.com/v1/search", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      params: {
-        q: searchKey,
-        type: "artist"
-      }
-    })
+  const fetchTopTracks = async () => {
+    try {
+      const { data } = await axios.get("https://api.spotify.com/v1/browse/new-releases", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        params: {
+          country: "CA"
+        }
+      });
 
-    setArtists(data.artists.items)
-  }
+      setTopTracks(data.albums.items);
+    } catch (error) {
+      console.error("Error fetching top tracks:", error);
+    }
+  };
+
+  const fetchTopArtists = async () => {
+    try {
+      const { data } = await axios.get("https://api.spotify.com/v1/me/top/artists", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        params: {
+          time_range: "short_term",
+          limit: 5,
+          offset: 0,
+          country: "CA" // Add country parameter to fetch top artists in Canada
+        }
+      });
+
+      setTopArtists(data.items);
+    } catch (error) {
+      console.error("Error fetching top artists:", error);
+    }
+  };
+
+  const fetchTopGenres = async () => {
+    try {
+      const { data } = await axios.get("https://api.spotify.com/v1/recommendations/available-genre-seeds", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      const topGenresSlice = data.genres.slice(0, 5);
+      setTopGenres(topGenresSlice);
+    } catch (error) {
+      console.error("Error fetching top genres:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchTopTracks();
+      fetchTopArtists();
+      fetchTopGenres();
+    }
+  }, [token]);
+
+  const renderTracks = () => {
+    return (
+      <div className="flex flex-wrap justify-center">
+        {topTracks.map((track, index) => (
+          <div key={index} className="card card-compact w-96 bg-base-100 shadow-xl mx-4 my-4">
+            <figure>
+              <img src={track.images.length ? track.images[0].url : "https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"} alt={track.name} />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{track.name}</h2>
+              <div className="card-actions justify-end">
+                <a href={track.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Listen on Spotify</a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   const renderArtists = () => {
-    return artists.map(artist => (
-      <div key={artist.id}>
-        {artist.images.length ? <img width={"10%"} src={artist.images[0].url} alt="" /> : <div>No Image</div>}
-        {artist.name}
+    return (
+      <div className="flex flex-wrap justify-center">
+        {topArtists.map((artist, index) => (
+          <div key={index} className="card card-compact w-96 bg-base-100 shadow-xl mx-4 my-4">
+            <figure>
+              <img src={artist.images.length ? artist.images[0].url : "https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"} alt={artist.name} />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{artist.name}</h2>
+              <div className="card-actions justify-end">
+                <a href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="btn btn-primary">View Artist</a>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
-    ))
-  }
-  const fetchTopArtists = async () => {
-    const { data } = await axios.get("https://api.spotify.com/v1/me/top/artists", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      params: {
-        time_range: "short_term",
-        limit: 5,
-        offset: 5
-      }
-    })
+    );
+  };
 
-    setArtists(data.items)
-  }
-
-  const fetchTopSongs = async () => {
-    const { data } = await axios.get("https://api.spotify.com/v1/me/top/tracks", {
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-      params: {
-        time_range: "short_term",
-        limit: 5,
-        offset: 5
-      }
-    })
-
-    setArtists(data.items)
-  }
+  const renderGenres = () => {
+    return (
+      <div className="flex flex-wrap justify-center">
+        {topGenres.map((genre, index) => (
+          <div key={index} className="card card-compact w-96 bg-base-100 shadow-xl mx-4 my-4">
+            <div className="card-body">
+              <h2 className="card-title">{genre}</h2>
+              <div className="card-actions justify-end">
+                <a href={`https://open.spotify.com/search/${encodeURIComponent(genre)}`} target="_blank" rel="noopener noreferrer" className="btn btn-primary">View Songs</a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="App">
@@ -88,34 +151,35 @@ function Discover() {
         <div className="navbar bg-mytheme-neutral outline outline-offset-2 outline-1">
           <div className="flex-1">
             <Link href="/" className="btn btn-ghost text-xl">RhythmRank</Link>
+            <Link href='/discover' className="btn btn-ghost text-xl">Discover Music</Link>
           </div>
           <div className="flex-none gap-2">
-            <div className="form-control">
-              <form onSubmit={searchArtists}>
-                <input placeholder="Search Artist" type="text" onChange={e => setSearchKey(e.target.value)} className="input input-bordered w-24 md:w-auto" />
-              </form>
-            </div>
             <p>{!token ?
-                  <a href={`${process.env.AUTH_ENDPOINT}?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}&response_type=${process.env.RESPONSE_TYPE}&scope=user-top-read`}>Login to Spotify</a>
-                  : <button onClick={logout}>Logout</button>}</p>
-            </div>
+              <a href={`${process.env.AUTH_ENDPOINT}?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}&response_type=${process.env.RESPONSE_TYPE}&scope=user-top-read`}>Login to Spotify</a>
+              : <button onClick={logout}>Logout</button>}</p>
           </div>
+        </div>
       </header>
       <div className="hero min-h-screen bg-mytheme-neutral">
         <div className="hero-content text-center">
-          <div className="max-w-md">
+          <div className="max-w-7x1">
             <h1 className="text-5xl font-bold">Discover Music</h1>
-            <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-            <div className='space-x-0.5'>
-            <Link href='/viewtopartists'className="btn btn-info bg-mytheme-secondary">View Top Artists</Link>
-            <Link href='/viewtopsongs'className="btn btn-info bg-mytheme-accent">View Top Songs</Link>
-            <Link href='/discover'className="btn btn-info bg-mytheme-info">Discover Music</Link>
+            <div className="grid grid-cols-3 gap-8">
+              <div className="col-span-1">
+                <button onClick={fetchTopTracks} className="btn btn-info bg-mytheme-secondary w-full">Reveal Top Tracks</button>
+                {renderTracks()}
+              </div>
+              <div className="col-span-1">
+                <button onClick={fetchTopArtists} className="btn btn-info bg-mytheme-secondary w-full">Reveal Top Artists</button>
+                {renderArtists()}
+              </div>
+              <div className="col-span-1">
+                <button onClick={fetchTopGenres} className="btn btn-info bg-mytheme-secondary w-full">Reveal Top Genres</button>
+                {renderGenres()}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div>
-        {renderArtists()}
       </div>
     </div>
   );
