@@ -33,7 +33,7 @@ function ViewTopSongs() {
       },
       params: {
         time_range: "short_term",
-        limit: 5,
+        limit: 50,
         offset: 0
       }
     });
@@ -81,15 +81,19 @@ function ViewTopSongs() {
         </div>
       </header>
       <div className="hero min-h-screen bg-mytheme-neutral">
-        <div className="hero-content text-center">
-          <div className="max-w-md">
-            <h1 className="text-5xl font-bold">View Your Top Songs</h1>
-            <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-            <button onClick={fetchTopTracks} className="btn btn-primary">Reveal Songs</button>
-            {renderTracks()}
-          </div>
+  <div className="hero-content text-center">
+    <div className="max-w-7x1">
+      <h1 className="text-5xl font-bold pb-10">Your Top Songs</h1>
+      <button onClick={fetchTopTracks} className="btn btn-primary w-full mb-8">Reveal Top Tracks</button>
+      <div className="grid grid-cols-3 gap-8">
+        <div className="col-span-3"> 
+          {renderTracks()} 
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
       <div>
       </div>
     </div>

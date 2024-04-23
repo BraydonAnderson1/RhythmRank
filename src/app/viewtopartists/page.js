@@ -44,20 +44,26 @@ function ViewTopArtists() {
   }
 
   const renderArtists = () => {
-    return artists.map(artist => (
-      <div key={artist.id} className="card card-compact w-96 bg-base-100 shadow-xl mx-4 my-4">
-        <figure>
-          <img src={artist.images.length ? artist.images[0].url : "https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"} alt={artist.name} />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">{artist.name}</h2>
-          <div className="card-actions justify-end">
-            <a href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="btn btn-primary">View Artist</a>
+    return (
+      <div className="flex flex-wrap justify-center">
+        {artists.map(artist => (
+          <div key={artist.id} className="card card-compact w-96 bg-base-100 shadow-xl mx-4 my-4">
+            <figure>
+              <img src={artist.images.length ? artist.images[0].url : "https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"} alt={artist.name} />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{artist.name}</h2>
+              <div className="card-actions justify-end">
+                <a href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="btn btn-primary">View Artist</a>
+              </div>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
-    ));
+    );
   };
+  
+  
 
   const fetchTopArtists = async () => {
     try {
@@ -67,7 +73,7 @@ function ViewTopArtists() {
         },
         params: {
           time_range: "short_term",
-          limit: 5,
+          limit: 20,
           offset: 0
         }
       });
@@ -80,41 +86,52 @@ function ViewTopArtists() {
   
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className="navbar bg-mytheme-neutral outline outline-offset-2 outline-1">
-          <div className="flex-1">
-            <Link href="/" className="btn btn-ghost text-xl">RhythmRank</Link>
-            <Link href='/discover' className="btn btn-ghost text-xl">Discover Music</Link>
-            <Link href='/viewtopsongs' className="btn btn-ghost text-xl">View Top Songs</Link>
-            <Link href='/viewtopgenres' className="btn btn-ghost text-xl">View Top Genres</Link>
-          </div>
-          <div className="flex-none gap-2">
-            <div className="form-control">
-              <form onSubmit={searchArtists}>
-                <input placeholder="Search Artist" type="text" onChange={e => setSearchKey(e.target.value)} className="input input-bordered w-24 md:w-auto" />
-              </form>
+      <div className="App">
+        <header className="App-header">
+          <div className="navbar bg-mytheme-neutral outline outline-offset-2 outline-1">
+            <div className="flex-1">
+              <Link href="/" className="btn btn-ghost text-xl">RhythmRank</Link>
+              <Link href='/discover' className="btn btn-ghost text-xl">Discover Music</Link>
+              <Link href='/viewtopartists' className="btn btn-ghost text-xl">View Top Artists</Link>
+              <Link href='/viewtopgenres' className="btn btn-ghost text-xl">View Top Genres</Link>
+  
             </div>
-            <p>{!token ?
-                  <a href={`${process.env.AUTH_ENDPOINT}?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}&response_type=${process.env.RESPONSE_TYPE}&scope=user-top-read`}>Login to Spotify</a>
-                  : <button onClick={logout}>Logout</button>}</p>
+            <div className="flex-none gap-2">
+              <p>{!token ?
+                <a href={`${process.env.AUTH_ENDPOINT}?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}&response_type=${process.env.RESPONSE_TYPE}&scope=user-top-read`}>Login to Spotify</a>
+                : <button onClick={logout}>Logout</button>}</p>
+            </div>
           </div>
-        </div>
-      </header>
-      <div className="hero min-h-screen bg-mytheme-neutral">
-        <div className="hero-content text-center">
-          <div className="max-w-md">
-            <h1 className="text-5xl font-bold">View Your Top Artists</h1>
-            <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
-            <button onClick={fetchTopArtists} className="btn btn-primary">Reveal Artists</button>
-            {renderArtists()}
+        </header>
+        <div className="hero min-h-screen bg-mytheme-neutral">
+  <div className="hero-content text-center">
+    <div className="max-w-7x1">
+      <h1 className="text-5xl font-bold pb-10">Your Top Artists</h1>
+      <button onClick={fetchTopArtists} className="btn btn-primary w-full mb-8">Reveal Top Artists</button>
+      <div className="flex flex-wrap justify-center">
+        {artists.map(artist => (
+          <div key={artist.id} className="card card-compact w-96 bg-base-100 shadow-xl mx-4 my-4">
+            <figure>
+              <img src={artist.images.length ? artist.images[0].url : "https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"} alt={artist.name} />
+            </figure>
+            <div className="card-body">
+              <h2 className="card-title">{artist.name}</h2>
+              <div className="card-actions justify-end">
+                <a href={artist.external_urls.spotify} target="_blank" rel="noopener noreferrer" className="btn btn-primary">View Artist</a>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div>
+        ))}
       </div>
     </div>
-  );
+  </div>
+</div>
+
+  
+        <div>
+        </div>
+      </div>
+    );
 }
 
 export default ViewTopArtists;
