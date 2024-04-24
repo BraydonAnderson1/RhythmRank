@@ -10,24 +10,25 @@ function Discover() {
   const [topGenres, setTopGenres] = useState([]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const hash = window.location.hash;
     let token = window.localStorage.getItem("token");
-  
+
     if (!token && hash) {
       token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1];
-  
+
       window.location.hash = "";
       window.localStorage.setItem("token", token);
     }
-  
+
     setToken(token);
-  
+
     if (token) {
       fetchTopTracks();
       fetchTopArtists();
       fetchTopGenres();
     }
-  }, []); 
+  }, []);
 
   const logout = () => {
     setToken("");
@@ -149,9 +150,9 @@ function Discover() {
         <div className="navbar bg-mytheme-neutral outline outline-offset-2 outline-1">
           <div className="flex-1">
             <Link href="/" className="btn btn-ghost text-xl">RhythmRank</Link>
-            <Link href='/viewtopsongs'className="btn btn-ghost text-xl">View Top Songs</Link>
-            <Link href='/viewtopartists'className="btn btn-ghost text-xl">View Top Artists</Link>
-            <Link href='/viewtopartists'className="btn btn-ghost text-xl">View Top Genres</Link>
+            <Link href='/viewtopsongs' className="btn btn-ghost text-xl">View Top Songs</Link>
+            <Link href='/viewtopartists' className="btn btn-ghost text-xl">View Top Artists</Link>
+            <Link href='/viewtopartists' className="btn btn-ghost text-xl">View Top Genres</Link>
           </div>
           <div className="flex-none gap-2">
             <p>{!token ?

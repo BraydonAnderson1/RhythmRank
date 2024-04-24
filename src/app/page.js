@@ -1,5 +1,4 @@
 'use client';
-
 import axios from 'axios';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
@@ -111,7 +110,7 @@ function Home() {
         <div className="hero-content text-center">
           <div className="max-w-md">
             <h1 className="text-5xl font-bold">Welcome to RhythmRank</h1>
-            <p className="py-6">Your gateway to personalized music exploration powered by Spotify's API!</p>
+            <p className="py-6">Your gateway to personalized music exploration powered by Spotify&apos;s API!</p>
             <div className='space-y-4 space-x-1'>
             <Link href='/viewtopartists'className="btn btn-primary">View Top Artists</Link>
             <Link href='/viewtopsongs'className="btn btn-primary">View Top Songs</Link>
