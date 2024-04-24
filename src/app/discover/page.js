@@ -12,16 +12,22 @@ function Discover() {
   useEffect(() => {
     const hash = window.location.hash;
     let token = window.localStorage.getItem("token");
-
+  
     if (!token && hash) {
       token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1];
-
+  
       window.location.hash = "";
       window.localStorage.setItem("token", token);
     }
-
+  
     setToken(token);
-  }, []);
+  
+    if (token) {
+      fetchTopTracks();
+      fetchTopArtists();
+      fetchTopGenres();
+    }
+  }, []); 
 
   const logout = () => {
     setToken("");
@@ -79,14 +85,6 @@ function Discover() {
       console.error("Error fetching top genres:", error);
     }
   };
-
-  useEffect(() => {
-    if (token) {
-      fetchTopTracks();
-      fetchTopArtists();
-      fetchTopGenres();
-    }
-  }, [token]);
 
   const renderTracks = () => {
     return (
