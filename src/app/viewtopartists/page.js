@@ -9,24 +9,25 @@ function ViewTopArtists() {
   const [artists, setArtists] = useState([])
 
   useEffect(() => {
-    const hash = window.location.hash
-    let token = window.localStorage.getItem("token")
+    const hash = window.location.hash;
+    let token = window.localStorage.getItem("token");
 
     if (!token && hash) {
-      token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1]
+      token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1];
 
-      window.location.hash = ""
-      window.localStorage.setItem("token", token)
+      window.location.hash = "";
+      window.localStorage.setItem("token", token);
     }
 
-    setToken(token)
+    setToken(token);
 
-  }, [])
+    // Add token as a dependency here
+  }, [token]); // token is now included in the dependency array
 
   const logout = () => {
-    setToken("")
-    window.localStorage.removeItem("token")
-  }
+    setToken("");
+    window.localStorage.removeItem("token");
+  };
 
   const searchArtists = async (e) => {
     e.preventDefault()
@@ -62,8 +63,6 @@ function ViewTopArtists() {
       </div>
     );
   };
-  
-  
 
   const fetchTopArtists = async () => {
     try {
@@ -84,7 +83,6 @@ function ViewTopArtists() {
     }
   };
   
-
   return (
       <div className="App">
         <header className="App-header">
@@ -92,7 +90,7 @@ function ViewTopArtists() {
             <div className="flex-1">
               <Link href="/" className="btn btn-ghost text-xl">RhythmRank</Link>
               <Link href='/discover' className="btn btn-ghost text-xl">Discover Music</Link>
-              <Link href='/viewtopartists' className="btn btn-ghost text-xl">View Top Artists</Link>
+              <Link href='/viewtopsongs' className="btn btn-ghost text-xl">View Top Songs</Link>
               <Link href='/viewtopgenres' className="btn btn-ghost text-xl">View Top Genres</Link>
   
             </div>

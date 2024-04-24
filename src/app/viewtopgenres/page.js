@@ -1,7 +1,7 @@
 "use client"
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 
 function ViewTopGenres() {
   const [token, setToken] = useState("");
@@ -19,7 +19,9 @@ function ViewTopGenres() {
     }
 
     setToken(token);
-  }, []);
+
+    // Add token as a dependency here
+  }, [token]); // token is now included in the dependency array
 
   const logout = () => {
     setToken("");

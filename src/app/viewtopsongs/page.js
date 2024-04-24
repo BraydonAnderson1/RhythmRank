@@ -8,6 +8,7 @@ function ViewTopSongs() {
   const [topTracks, setTopTracks] = useState([]);
 
   useEffect(() => {
+    // Effect to fetch token and set it
     const hash = window.location.hash;
     let token = window.localStorage.getItem("token");
 
@@ -19,7 +20,33 @@ function ViewTopSongs() {
     }
 
     setToken(token);
-  }, []);
+  }, []); // Dependency array is empty because this effect runs only once on mount
+
+  useEffect(() => {
+    // Effect to fetch top tracks when token changes
+    const fetchTopTracks = async () => {
+      if (token) {
+        try {
+          const { data } = await axios.get("https://api.spotify.com/v1/me/top/tracks", {
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
+            params: {
+              time_range: "short_term",
+              limit: 50,
+              offset: 0
+            }
+          });
+
+          setTopTracks(data.items);
+        } catch (error) {
+          console.error("Error fetching top tracks:", error);
+        }
+      }
+    };
+
+    fetchTopTracks();
+  }, [token]); // Dependency array includes token because this effect depends on token
 
   const logout = () => {
     setToken("");
