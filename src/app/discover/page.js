@@ -151,7 +151,9 @@ function Discover() {
         <div className="navbar bg-mytheme-neutral outline outline-offset-2 outline-1">
           <div className="flex-1">
             <Link href="/" className="btn btn-ghost text-xl">RhythmRank</Link>
-            <Link href='/discover' className="btn btn-ghost text-xl">Discover Music</Link>
+            <Link href='/viewtopsongs'className="btn btn-ghost text-xl">View Top Songs</Link>
+            <Link href='/viewtopartists'className="btn btn-ghost text-xl">View Top Artists</Link>
+            <Link href='/viewtopartists'className="btn btn-ghost text-xl">View Top Genres</Link>
           </div>
           <div className="flex-none gap-2">
             <p>{!token ?
