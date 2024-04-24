@@ -8,6 +8,7 @@ function ViewTopGenres() {
   const [topGenres, setTopGenres] = useState([]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const hash = window.location.hash;
     let token = window.localStorage.getItem("token");
 
@@ -20,8 +21,7 @@ function ViewTopGenres() {
 
     setToken(token);
 
-    // Add token as a dependency here
-  }, [token]); // token is now included in the dependency array
+  }, [token]);
 
   const logout = () => {
     setToken("");
@@ -35,7 +35,7 @@ function ViewTopGenres() {
           Authorization: `Bearer ${token}`
         }
       });
-  
+
       // Get the first 5 genres
       const topGenresSlice = data.genres.slice(0, 5);
       setTopGenres(topGenresSlice);

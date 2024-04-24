@@ -8,7 +8,7 @@ function ViewTopSongs() {
   const [topTracks, setTopTracks] = useState([]);
 
   useEffect(() => {
-    // Effect to fetch token and set it
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const hash = window.location.hash;
     let token = window.localStorage.getItem("token");
 
@@ -20,7 +20,7 @@ function ViewTopSongs() {
     }
 
     setToken(token);
-  }, []); // Dependency array is empty because this effect runs only once on mount
+  }, []);
 
   useEffect(() => {
     // Effect to fetch top tracks when token changes
@@ -46,7 +46,7 @@ function ViewTopSongs() {
     };
 
     fetchTopTracks();
-  }, [token]); // Dependency array includes token because this effect depends on token
+  }, [token]);
 
   const logout = () => {
     setToken("");
@@ -102,24 +102,24 @@ function ViewTopSongs() {
           </div>
           <div className="flex-none gap-2">
             <p>{!token ?
-                  <a href={`${process.env.AUTH_ENDPOINT}?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}&response_type=${process.env.RESPONSE_TYPE}&scope=user-top-read`}>Login to Spotify</a>
-                  : <button onClick={logout}>Logout</button>}</p>
+              <a href={`${process.env.AUTH_ENDPOINT}?client_id=${process.env.CLIENT_ID}&redirect_uri=${process.env.REDIRECT_URI}&response_type=${process.env.RESPONSE_TYPE}&scope=user-top-read`}>Login to Spotify</a>
+              : <button onClick={logout}>Logout</button>}</p>
           </div>
         </div>
       </header>
       <div className="hero min-h-screen bg-mytheme-neutral">
-  <div className="hero-content text-center">
-    <div className="max-w-7x1">
-      <h1 className="text-5xl font-bold pb-10">Your Top Songs</h1>
-      <button onClick={fetchTopTracks} className="btn btn-primary w-full mb-8">Reveal Top Tracks</button>
-      <div className="grid grid-cols-3 gap-8">
-        <div className="col-span-3"> 
-          {renderTracks()} 
+        <div className="hero-content text-center">
+          <div className="max-w-7x1">
+            <h1 className="text-5xl font-bold pb-10">Your Top Songs</h1>
+            <button onClick={fetchTopTracks} className="btn btn-primary w-full mb-8">Reveal Top Tracks</button>
+            <div className="grid grid-cols-3 gap-8">
+              <div className="col-span-3">
+                {renderTracks()}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
       <div>
       </div>
