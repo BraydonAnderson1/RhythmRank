@@ -168,7 +168,7 @@ function Discover() {
             <h1 className="text-5xl font-bold pb-10">Discover Music</h1>
             <div className="grid grid-cols-3 gap-8">
               <div className="col-span-1">
-                <button onClick={fetchTopTracks} className="btn btn-primary w-full">Reveal Top Tracks</button>
+                <button onClick={fetchTopTracks} className="btn btn-primary w-full">Recommended  Tracks</button>
                 {renderTracks()}
               </div>
               <div className="col-span-1">
